@@ -13,6 +13,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -87,6 +88,18 @@ fun KHQRScreen(navController: NavHostController) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     var showCard by remember { mutableStateOf(false) }
+    var selectedAccount by remember { mutableStateOf(0) } // 0 = KHR, 1 = USD
+
+    // right above:
+    val qrData = if (selectedAccount == 0) {
+        // KHR payload
+        "00020101021129360009khqr@aclb01090173502160206ACLEDA3920001185518405506010" +
+                "145204200053031165802KH5914SEANG SENGLEAP6010PHNOM PENH621302090173502166304E527"
+    } else {
+        // USD payload
+        "00020101021129360009khqr@aclb01090173502160206ACLEDA3920001185518405506010145204200053038405802" +
+                "KH5914SEANG SENGLEAP6010PHNOM PENH621302090173502166304F4E8"
+    }
 
     // Trigger the slide‑in once the screen appears
     LaunchedEffect(Unit) { showCard = true }
@@ -97,10 +110,10 @@ fun KHQRScreen(navController: NavHostController) {
         scrimColor = Color.Transparent,
         sheetContent = {
             AccountSelectionSheet(
-                onClose = {
-                    scope.launch {
-                        sheetState.hide()
-                    }
+                selected        = selectedAccount,
+                onSelectAccount = { idx ->
+                    selectedAccount = idx
+                    scope.launch { sheetState.hide() }
                 }
             )
         }
@@ -296,16 +309,20 @@ fun KHQRScreen(navController: NavHostController) {
 
                                     // 1) Place the QR-code composable as a child
                                     KHQRScreen(
-                                        text = "00020101021129360009khqr@aclb01090173502160206ACLEDA3920001185518405506010" +
-                                                "145204200053031165802KH5914SEANG SENGLEAP6010PHNOM PENH621302090173502166304E527",
+                                        text = qrData,
                                         modifier = Modifier
                                             .align(Alignment.Center)
                                     )
 
                                     // 2) Overlay your icon in a corner
                                     Icon(
-                                        painter = painterResource(id = R.drawable.ic_qr_riel),
-                                        contentDescription = "QR overlay",
+                                        painter = painterResource(
+                                            id = if (selectedAccount == 0)
+                                                R.drawable.ic_qr_riel
+                                            else
+                                                R.drawable.dollar_coin // <-- your $ icon resource
+                                        ),
+                                        contentDescription = if (selectedAccount == 0) "Riel" else "Dollar",
                                         tint = Color.Black,
                                         modifier = Modifier
                                             //                                .height(50.dp)
@@ -315,6 +332,7 @@ fun KHQRScreen(navController: NavHostController) {
                                                 color = Color.White,
                                                 shape = RoundedCornerShape(50.dp)
                                             )
+
                                             .padding(1.dp)
                                     )
                                 }
@@ -432,7 +450,7 @@ private fun RadioItem(
         Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(if (selected) Color(0xFFE3F2FD) else Color.Transparent)
+            .background(if (selected) Color(0xFFC8E8FF) else Color.Transparent)
             .clickable(onClick = onSelect)
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -441,7 +459,7 @@ private fun RadioItem(
         Spacer(Modifier.width(12.dp))
         Column {
             Text(label, fontSize = 16.sp)
-            Text(subtitle, fontSize = 12.sp, color = Color.Gray)
+            Text(subtitle, fontSize = 12.sp, color = Color.Black)
         }
     }
 }
@@ -494,6 +512,48 @@ fun DotSaveShareFeature(
                     textAlign = TextAlign.Center
                 )
             }
+        }
+    }
+}
+
+
+@Composable
+private fun AccountSelectionSheet(
+    selected: Int,
+    onSelectAccount: (Int) -> Unit
+) {
+    Column {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .background(AmberColor)
+        ) {
+            Text(
+                "Select Account to Receive",
+                fontSize   = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                color      = Color.White,
+                modifier   = Modifier.align(Alignment.Center)
+            )
+        }
+
+        Spacer(Modifier.height(12.dp))
+
+        Column(Modifier.fillMaxWidth().padding(16.dp)) {
+            RadioItem(
+                label    = "KHR || 017 350 216",
+                subtitle = "Wallet",
+                selected = (selected == 0),
+                onSelect = { onSelectAccount(0) }
+            )
+            Spacer(Modifier.height(8.dp))
+            RadioItem(
+                label    = "USD || 017 350 216",
+                subtitle = "Wallet",
+                selected = (selected == 1),
+                onSelect = { onSelectAccount(1) }
+            )
         }
     }
 }

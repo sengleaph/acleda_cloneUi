@@ -11,14 +11,14 @@ val WalletModel = listOf(
         phoneNumber= "017 350 216",
         subTitle  = "Wallet",
         currency  = "KHR",
-        amount    = "100,000",
+        amount    = "175,870",
         onSelect  = {},
     ),
     BottomSheetState(
         phoneNumber= "017 350 216",
         subTitle  = "Wallet",
         currency  = "USA",
-        amount    = "100.000",
+        amount    = "41,00",
         onSelect  = {},
     ),
 )

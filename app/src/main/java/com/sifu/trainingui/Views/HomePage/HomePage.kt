@@ -1,5 +1,8 @@
 package com.sifu.trainingui.Views.HomePage
 
+import AppearanceSection
+import CustomizeScreen
+import OtherServiceScreenComponent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,12 +29,13 @@ fun HomePage(navController: NavHostController) {
             Row(
                 Modifier
                     .fillMaxWidth()
+                    .safeContentPadding()
                     .padding(horizontal = 20.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Image(
-                    painter = painterResource(R.drawable.ic_ac_logo),
+                    painter = painterResource(R.drawable.ic_acleda_icon_logo),
                     contentDescription = "Acleda Logo",
                     modifier = Modifier.height(48.dp)
                 )
@@ -78,10 +82,12 @@ fun HomePage(navController: NavHostController) {
                     navController = navController
                 )
                 ScrollHorizontalCardView()
+                TransactionComponent()
                 RecommendedScreen()
                 SpacialOfferScreenComponent()
                 OtherServiceScreenComponent()
                 InsuranceScreen()
+                CustomizeScreen()
             }
         }
     }

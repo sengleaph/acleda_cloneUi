@@ -36,7 +36,7 @@ data class BottomSheetState(
     val onSelect: () -> Unit,
 )
 
-enum class SheetType { Wallet, Favorite, Purpose }
+enum class SheetType { Wallet, Favorite, Purpose, Amount}
 
 @Composable
 fun WalletAmount(
@@ -98,6 +98,32 @@ fun WalletAmount(
         }
     }
 }
+@Composable
+fun SwitchAmount(
+    currency: String,
+    amount: String,
+    onSelect: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = onSelect)
+            .padding(vertical = 12.dp, horizontal = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = currency,
+            style = TextStyle(
+                fontWeight = FontWeight.W500,
+                fontSize = 14.sp
+            ),
+            color = AmberColor
+        )
+    }
+}
+
 
 @Composable
 fun FavoriteUserComponent(

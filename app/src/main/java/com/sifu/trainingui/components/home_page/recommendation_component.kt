@@ -93,8 +93,8 @@ fun RecommendationScreen(
     ),
     subtitleStyle: TextStyle = TextStyle(
         color = Color.White,
-        fontSize = 12.sp,
-        fontWeight = FontWeight.SemiBold
+        fontSize = 10.sp,
+        fontWeight = FontWeight.W300
     ),
 ) {
     val pagerState = rememberPagerState(initialPage = 0)

@@ -1,5 +1,3 @@
-package com.sifu.trainingui.components.home_page
-
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

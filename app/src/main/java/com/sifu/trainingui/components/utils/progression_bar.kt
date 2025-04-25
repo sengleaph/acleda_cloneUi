@@ -102,7 +102,7 @@ fun ProgressIconItem(
     trackColor: Color = AmberColor.copy(alpha = 0.3f),
     progressColor: Color = Navy,
     labelStyle:TextStyle = TextStyle(
-        fontSize = 12.sp,
+        fontSize = 10.sp,
         color = Navy
     ),
     tint : Color,
@@ -152,7 +152,8 @@ fun ProgressIconItem(
                     painter = icon,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(size * 0.5f)
+                        .size(size * 0.5f),
+                    tint = Navy
                 )
                 Text(
                     text = label,

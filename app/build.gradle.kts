@@ -72,6 +72,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     // https://mvnrepository.com/artifact/com.airbnb.android/lottie
     implementation("com.airbnb.android:lottie-compose:6.6.6")
+    implementation("com.google.accompanist:accompanist-insets:0.31.5-beta")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

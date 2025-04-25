@@ -247,7 +247,7 @@ fun ScrollHorizontalCardView(
 @Composable
 fun HorizontalFeatureCard(
     itemText: String,
-    iconText: ImageVector,
+    iconText: Int,
     contentColor: Color = WhiteTransparent,
     borderColor: Color = Color.White,
     cornerShape: RoundedCornerShape = RoundedCornerShape(10.dp),
@@ -284,7 +284,7 @@ fun HorizontalFeatureCard(
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = iconText,
+                        painterResource(id = iconText),
                         contentDescription = itemText,
                         tint = iconTint,
                         modifier = Modifier.size(iconSize)
@@ -299,3 +299,5 @@ fun HorizontalFeatureCard(
         }
     }
 }
+
+

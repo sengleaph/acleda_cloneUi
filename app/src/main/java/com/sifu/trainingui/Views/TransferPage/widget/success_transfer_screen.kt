@@ -151,7 +151,7 @@ fun SuccessTransferScreen(
 
                     // “Carve” image that peeks under the card
                     Image(
-                        painter = painterResource(R.drawable.carve_1),
+                        painter = painterResource(R.drawable.carve1),
                         contentDescription = null,
                         contentScale = ContentScale.FillWidth,
                         modifier = Modifier
